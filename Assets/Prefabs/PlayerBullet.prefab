@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5605595159642583017}
   - component: {fileID: 5605595159642583020}
   - component: {fileID: 5605595159642583019}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 5605595159931278992}
   - component: {fileID: 5605595159931278997}
   - component: {fileID: 5605595159931278996}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,4 +204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ae9ff0d33c48bb48a65e1bd467db955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
+  speed: 500
+  explosionRadius: 5
+  explosionForce: 3000
