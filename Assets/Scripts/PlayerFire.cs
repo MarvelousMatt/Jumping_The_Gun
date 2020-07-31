@@ -6,9 +6,17 @@ public class PlayerFire : MonoBehaviour
 {
     public GameObject bulletPrefab;
 
-    public GameObject firePointForward;
+    public GameObject firePoint;
 
-    public GameObject firePointBackward;
+    public float speed;
+
+    public float explosionRadius;
+
+    public float implosionRadius;
+
+    public float explosionForce;
+
+    public float implosionForce;
 
 
     // Start is called before the first frame update
@@ -30,24 +38,14 @@ public class PlayerFire : MonoBehaviour
         }
     }
 
-    void Fire(bool fireForward)
+    void Fire(bool explode)
     {
-        Quaternion bulletRotation;
-        Vector3 bulletFirePos;
+        //Fancy visuals and reloading here later
+        PlayerBullet bullet  = Instantiate(bulletPrefab, firePoint.transform.position , firePoint.transform.rotation).GetComponent<PlayerBullet>();
 
-        //Possibly cut this statement later for efficiency
-        if (fireForward)
-        {
-            bulletRotation = firePointForward.transform.rotation;
-            bulletFirePos = firePointForward.transform.position;
-        }
-        else
-        {
-            bulletRotation = firePointBackward.transform.rotation;
-            bulletFirePos = firePointBackward.transform.position;
-        }
+        bullet.SetCharacteristics(speed, explosionRadius, explosionForce, explode);
 
-        Instantiate(bulletPrefab, bulletFirePos , bulletRotation);
+        
     }
 
 }

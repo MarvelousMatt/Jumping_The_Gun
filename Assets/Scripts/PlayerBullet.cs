@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
-    public float speed;
+    float speed;
 
-    public float explosionRadius;
+    float explosionRadius;
 
-    public float explosionForce;
+    float explosionForce;
 
-    private void Awake()
+    bool explode;
+
+    //Alters the bullet characteristics through the firing entity
+    //Essentially a constructor for bullets to get around the limitations of monobehaviour construction
+    public void SetCharacteristics(float eSpeed, float eExplosionRadius, float eExplosionForce, bool eExplode)
     {
+        speed = eSpeed;
+        explosionRadius = eExplosionRadius;
+        explosionForce = eExplosionForce;
+        explode = eExplode;
+
         GetComponent<Rigidbody>().AddForce(transform.up * speed);
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -24,8 +34,14 @@ public class PlayerBullet : MonoBehaviour
 
         for (int i = 0; i < rbHits.Length; i++)
         {
-            if (rbHits[i].gameObject.GetComponent<Rigidbody>())
-                rbHits[i].attachedRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+            if (rbHits[i].gameObject.GetComponent<Rigidbody>() && rbHits[i].gameObject.CompareTag("Player"))
+            {
+                if(explode)
+                    rbHits[i].attachedRigidbody.AddForce((rbHits[i].gameObject.transform.position - transform.position).normalized * explosionForce);
+                else
+                    rbHits[i].attachedRigidbody.AddForce((transform.position - rbHits[i].gameObject.transform.position).normalized * explosionForce);
+            }
+                
         }
 
         Debug.Log("Hit: " + collision.gameObject.name);
